@@ -5,7 +5,7 @@ import { useAuth } from '../store/auth';
 import "./FormModal.css"
 function FormModal() {
     
-    const { show, handleClose, handleOpen ,currentContact  ,isEditClicked} = useAuth();
+    const { show, handleClose, handleOpen ,currentContact,SetCurrentContact  ,isEditClicked ,handleAddContact , handleUpdate} = useAuth();
     // const [currentContact ,setCurrentContact]  = useState({
     //     employeeName : '' ,
     //     employeeEmail: '',
@@ -13,6 +13,27 @@ function FormModal() {
     //     employeeAddress: ''
     // }) ;
 
+    const handleChange =(e) => {
+        console.log("mfghj");
+            const {name , value} = e.target ;
+            console.log( value);
+            
+            SetCurrentContact( (prevState) => ({
+                ...prevState ,
+                [name] : value
+            }))
+    }
+
+    const handleAddCnt = () => {
+
+        handleAddContact() ;  // submit data 
+        handleClose() ;
+    }
+
+    const handleUpdateBtn = () => {
+        handleUpdate() ;
+        handleClose();
+    }
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
@@ -26,32 +47,32 @@ function FormModal() {
                     <form>
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
-                            <input type="text" className="form-control" id="name" value={currentContact.employeeName}  placeholder="Enter name"/>
+                            <input type="text" className="form-control" id="name" name='employeeName' value={currentContact.employeeName  || ''}  onChange={handleChange} placeholder="Enter name"/>
                         </div>
                         <div className="form-group ">
                             <label htmlFor="email">Email</label>
-                            <input type="email" className="form-control" id="email" value={currentContact.employeeEmail}  placeholder="Enter Email"/>
+                            <input type="email" className="form-control" id="email" name="employeeEmail" value={currentContact.employeeEmail} onChange={handleChange} placeholder="Enter Email"/>
                         </div>
                         <div className='row'>
                         <div class="form-group col-6">
                             <label htmlFor="mobile">Mobile</label>
-                            <input type="number" className="form-control" id="mobile"  value={currentContact.employeeMobile}  placeholder="Enter Mobile"/>
+                            <input type="number" className="form-control" id="mobile" name="employeeMobile"  value={currentContact.employeeMobile} onChange={handleChange} placeholder="Enter Mobile"/>
                         </div>
                         <div className="form-group col-6">
                             <label htmlFor="landline">Landline</label>
-                            <input type="number" className="form-control" id="landline" disabled  placeholder="Enter landline"/>
+                            <input type="number" className="form-control" id="landline" name="employeeLandline" disabled  placeholder="Enter landline"onChange={handleChange}/>
                             {/* <small  class="form-text text-muted">Curently this field is muted.</small> */}
 
                         </div>
                         </div>
                         <div className="form-group">
                             <label htmlFor="website">Website</label>
-                            <input type="text" className="form-control" id="website" disabled  placeholder="Enter website"/>
+                            <input type="text" className="form-control" id="website" name="employeeWebsite" disabled  placeholder="Enter website"onChange={handleChange}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="address">Address</label>
                             {/* <input type="email" class="form-control" id="address"  placeholder="Enter address"/> */}
-                            <textarea type="text" className="form-control"  id="Address" value={currentContact.employeeAddress} />
+                            <textarea type="text" className="form-control"  id="Address" name="employeeAddress" value={currentContact.employeeAddress} onChange={handleChange}/>
                         </div>
                     </form>
                 </Modal.Body>
@@ -60,10 +81,10 @@ function FormModal() {
                         Close
                     </Button>
                     {
-                        isEditClicked ? ( <button className="add-Contact btn btn-primary"  onClick={handleClose}>
+                        isEditClicked ? ( <button className="add-Contact btn btn-primary"  onClick={handleUpdateBtn}>
                            Update
                         </button>) : (
-                           <button className="add-Contact btn btn-primary"  onClick={handleClose}>
+                           <button  type='button' className="add-Contact btn btn-primary"  onClick={handleAddCnt}>
                            Add 
                        </button>
                         )

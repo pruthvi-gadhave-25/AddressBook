@@ -4,7 +4,12 @@ import { useAuth } from '../store/auth';
 
 
 const NavBar = () => {
-const {handleOpen}  = useAuth() ;
+const {handleOpen ,handleAddButton}  = useAuth() ;
+
+const handleAddContact = () => {
+    handleOpen() ;
+    handleAddButton() ;
+}
     return (
 
         <div className="container-fluid bg-dark-subtle ">

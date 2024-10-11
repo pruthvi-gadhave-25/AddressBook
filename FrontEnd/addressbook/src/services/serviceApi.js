@@ -1,30 +1,4 @@
-// add
 //get
-
-// export const getContacts = async () => {
-//     try {
-//         const response = await  fetch('https://localhost:7166/api/Employee/employees', {
-//             method: "GET",
-//             headers :{
-//                 'Content-Type': 'application/json',
-//             }
-
-//         })
-
-
-//         if ( !response.ok) {
-//             throw new Error("Network Response was not OK " , response.status);
-//         }
-//         const data = await response.json();
-//         return data;
-//     }
-//     catch (error) {
-//         console.error(error);
-//         return null;
-//     }
-
-// }
-
 export async function getContacts(){
     const url = "https://localhost:7166/api/Employee/employees" ;
 
@@ -41,5 +15,77 @@ export async function getContacts(){
         console.error(error.message);
       }
 }
+
+//add 
+export async function addContact(contactData){
+    const url = "https://localhost:7166/api/Employee/add" ;
+
+    try{
+        const response =await fetch(url , {
+            method : "POST" ,
+            headers :{
+                'Content-Type' : 'application/json' ,
+            },
+            body : JSON.stringify(contactData)  ,
+        }) ;
+
+        if(!response.ok){
+            throw new Error("reposnse is not OK" , response.status) ;
+        }
+        const json = await response.json();
+    return json ;
+    }
+    catch (error) {
+        console.error(error.message);
+      }
+}
+
+
+//update
+export async function updateContact(contactData , id){
+    const url = `https://localhost:7166/api/Employee/update${id}` ;
+
+    try{
+        const response =await fetch(url , {
+            method : "PUT" ,
+            headers :{
+                'Content-Type' : 'application/json' ,
+            },
+            body : JSON.stringify(contactData)  ,
+        }) ;
+
+        if(!response.ok){
+            throw new Error("reposnse is not OK" , response.status) ;
+        }
+        const json = await response.json();
+    return json ;
+    }
+    catch (error) {
+        console.error(error.message);
+      }
+}
+
+
 //delete
-//update 
+export async function deleteContact(contactId){
+    const url = `https://localhost:7166/api/Employee/delete${contactId}` ;
+
+    try{
+        const response =await fetch(url , {
+            method : "DELETE" ,
+            headers :{
+                'Content-Type' : 'application/json' ,
+            },
+          
+        }) ;
+
+        if(!response.ok){
+            throw new Error("reposnse is not OK" , response.status) ;
+        }
+        const json = await response.json();
+    return json ;
+    }
+    catch (error) {
+        console.error(error.message);
+      }
+}
