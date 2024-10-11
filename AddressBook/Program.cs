@@ -12,12 +12,27 @@ namespace AddressBook
         {
             try
             {
+                
                 var builder = WebApplication.CreateBuilder(args);
+                var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
                 if (string.IsNullOrWhiteSpace(connectionString))
                 {
                     throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
                 }
+
+                
+
+                // adding cors 
+
+                builder.Services.AddCors(options =>
+                {
+                    options.AddPolicy(name: MyAllowSpecificOrigins,
+                                      policy =>
+                                      {
+                                          policy.WithOrigins("http://localhost:3000/");
+                                      });
+                });
                 //builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
                 //Add scoped to tell that for dependency injection register 
@@ -42,6 +57,11 @@ namespace AddressBook
                     app.UseSwaggerUI();
                 }
 
+                app.UseCors(builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                );
                 app.UseHttpsRedirection();
 
                 app.UseAuthorization();

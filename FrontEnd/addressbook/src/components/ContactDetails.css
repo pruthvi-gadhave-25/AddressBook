@@ -1,0 +1,14 @@
+img{
+    height: 33%;
+    margin-right: 0.2rem;
+}
+
+
+.heading{
+    padding-top: 2%;
+}
+
+.list-section ul {
+    height: 45vh;
+    overflow: auto;
+}
