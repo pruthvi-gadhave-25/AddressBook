@@ -3,18 +3,30 @@ import './ContactDetails.css';
 import Edit from '../images/Edit-icon.png' ;
 import Delete from '../images/delete2.png';
 import { useAuth } from '../store/auth';
+import { Link, useParams } from 'react-router-dom';
 
-function ContactDetails({contact }) {
+function ContactDetails() {
     const { handleEdit , handleDelete ,contacts ,setIsDeleted ,isDeleted} = useAuth() ;
     // const [updatedContact , setUpDatedContact] = useState(contact) ;
     // const {} = useAuth() ;
-
+    const{ id} = useParams() ;
+    debugger ;
+    console.log(parseInt(id) , contacts);
+    
+    const contact =  contacts.find((item) => {
+        return item.employeeId == parseInt(id);}) ;
    
-    useEffect( () => {
-        return (
-            setIsDeleted(false) 
-        )
-    } ,[isDeleted]) ;
+
+    // if (!contact) {
+    //     return <div>Contact not found</div>;
+    //   }
+
+
+    // useEffect( () => {
+    //     return (
+    //         setIsDeleted(false) 
+    //     )
+    // } ,[isDeleted]) ;
      
   return (
     <>
@@ -24,8 +36,8 @@ function ContactDetails({contact }) {
             </div>    
             <div className='col-8 '>
                 <ul className='p-0 d-flex'>
-                    <li className='p-1' onClick={ (e) => handleEdit(contact.employeeId)}><span><img src={Edit}  alt='EditIcon'/></span>EDIT</li>
-                    <li className='p-1' onClick={(e) => handleDelete(contact.employeeId)}><span><img src={Delete}  alt='deleteIcon' /></span>DELETE</li>
+                    <Link className='p-1 linkButton'  to={`/contacts/form/edit/${id}`}  onClick={() =>handleEdit(contact.employeeId)}><span><img src={Edit}  alt='EditIcon'/></span>EDIT</Link>
+                    <Link className='p-1 linkButton' onClick={ (e) => handleDelete(contact.employeeId)}><span><img src={Delete}  alt='deleteIcon' /></span>DELETE</Link>
                 </ul>
             </div>    
         </div> 

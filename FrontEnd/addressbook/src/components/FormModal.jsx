@@ -2,31 +2,44 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useAuth } from '../store/auth';
 import "./FormModal.css"
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+
 function FormModal() {
     
-    const { show, handleClose,  currentContact,SetCurrentContact  ,isEditClicked ,handleAddContact , handleUpdate} =  useAuth();
-   
-    const handleChange =(e) => {
+    const { show, handleClose,  currentContact,SetCurrentContact  ,isEditClicked ,handleAddContact , handleUpdate ,contacts} =  useAuth();
+
+    // const [contact , setContact] = useState(currentContact) ;
+    const {id} = useParams();
+    const navigate = useNavigate() ;
+//    const  currContact  = contacts.find((cnt) => cnt.employeeId === id);
+    // const   currContact =contacts.find((cnt) => cnt.employeeId === id);
+    // setContact(currContact);
      
-            const {name , value} = e.target ;
-         
-            
-            SetCurrentContact( (prevState) => ({
-                ...prevState ,
-                [name] : value
-            }))
-    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        SetCurrentContact((prevState) => ({
+          ...prevState,
+          [name]: value
+        }));
+        console.log(currentContact.employeeName);
+        
+      };
 
     const handleAddCnt = () => {
 
         handleAddContact() ;  // submit data 
         handleClose() ;
+    
     }
 
     const handleUpdateBtn = () => {
         handleUpdate() ;
         handleClose();
     }
+    // console.log(contact);
+    
     return (
         <div>
             <Modal show={show} onHide={handleClose}>

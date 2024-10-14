@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { addContact, deleteContact, getContacts, updateContact } from "../services/serviceApi";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -17,7 +18,8 @@ export const AuthProvider = ({ children }) => {
     const [isContact ,setIsContact] =useState(false) ;
     const [isDelete , setIsDeleted]  =useState( false ) ;
     
-    const [currentContact, SetCurrentContact] = useState(initialContact)
+    const [currentContact, SetCurrentContact] = useState(initialContact) ;
+    const navigate = useNavigate() ;
 
       //fetch Contacts
       const fetchContacts = async () => {
@@ -25,14 +27,16 @@ export const AuthProvider = ({ children }) => {
         const data = await getContacts()
         SetContcts(data);
     }
-    const handleOpen = () => {
-        console.log(isEditClicked);
 
-        if (!isEditClicked) {
-            SetCurrentContact(initialContact)
-        }
-        setShow(true);
-    }
+    //OPEN form
+    const handleOpen = () => {setShow(true);}
+    //CLOSE FORM
+    const handleClose = () => {
+        SetCurrentContact(initialContact)
+        setShow(false);
+        setIsEditClicked(false);
+        navigate("/contactlist");
+    };
 
 
     // from navbar open form Add button
@@ -47,22 +51,22 @@ export const AuthProvider = ({ children }) => {
         fetchContacts() ;
 
     }
-    const handleClose = () => {
-        SetCurrentContact(initialContact)
-        setShow(false);
-        setIsEditClicked(false);
-    };
+ 
 
     const handleEdit = (id) => {
+        debugger ;
+      
         const currentContact = contacts.find((cnt) => cnt.employeeId === id);
         SetCurrentContact(currentContact);
         setIsEditClicked(true);
+        handleOpen() ;
     }
 
     const handleUpdate = async () => {
 
        await  updateContact(currentContact, currentContact.employeeId);       
     fetchContacts() ;
+   
     }
 
     //DELETE
@@ -72,6 +76,7 @@ export const AuthProvider = ({ children }) => {
        setIsDeleted(true);
        setIsContact(false) ;
         fetchContacts() ;
+        navigate("/contactlist")
     }
 
 
