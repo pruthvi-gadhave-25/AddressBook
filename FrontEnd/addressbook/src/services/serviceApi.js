@@ -32,8 +32,8 @@ export async function addContact(contactData){
         if(!response.ok){
             throw new Error("reposnse is not OK" , response.status) ;
         }
-        const json = await response.json();
-    return json ;
+    //     const json = await response.json();
+    // return json ;
     }
     catch (error) {
         console.error(error.message);
@@ -43,12 +43,13 @@ export async function addContact(contactData){
 
 //update
 export async function updateContact(contactData , id){
+ 
     const url = `https://localhost:7166/api/Employee/update${id}` ;
 
     try{
         const response =await fetch(url , {
             method : "PUT" ,
-            headers :{
+            headers :{ 
                 'Content-Type' : 'application/json' ,
             },
             body : JSON.stringify(contactData)  ,
@@ -57,8 +58,8 @@ export async function updateContact(contactData , id){
         if(!response.ok){
             throw new Error("reposnse is not OK" , response.status) ;
         }
-        const json = await response.json();
-    return json ;
+    //     const json = await response.json();
+    // return json ;
     }
     catch (error) {
         console.error(error.message);
@@ -82,8 +83,8 @@ export async function deleteContact(contactId){
         if(!response.ok){
             throw new Error("reposnse is not OK" , response.status) ;
         }
-        const json = await response.json();
-    return json ;
+    //     const json = await response.json();
+    // return json ;
     }
     catch (error) {
         console.error(error.message);

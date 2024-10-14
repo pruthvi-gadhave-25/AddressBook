@@ -1,88 +1,84 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { addContact, deleteContact, getContacts, updateContact } from "../services/serviceApi";
 
 export const AuthContext = createContext();
 
+const initialContact ={
+    employeeId : '' ,
+    employeeName: '',
+    employeeEmail: '',
+    employeeMobile: '',
+    employeeAddress: ''
+}
 export const AuthProvider = ({ children }) => {
     const [contacts, SetContcts] = useState([]);
     const [show, setShow] = useState(false);
     const [isEditClicked, setIsEditClicked] = useState(false);
-    const [currentContact, SetCurrentContact] = useState({
+    const [isContact ,setIsContact] =useState(false) ;
+    const [isDelete , setIsDeleted]  =useState( false ) ;
+    
+    const [currentContact, SetCurrentContact] = useState(initialContact)
 
-        employeeName: '',
-        employeeEmail: '',
-        employeeMobile: '',
-        employeeAddress: ''
-    })
-
+      //fetch Contacts
+      const fetchContacts = async () => {
+      
+        const data = await getContacts()
+        SetContcts(data);
+    }
     const handleOpen = () => {
         console.log(isEditClicked);
 
         if (!isEditClicked) {
-            SetCurrentContact({
-                employeeName: '',
-                employeeEmail: '',
-                employeeMobile: '',
-                employeeAddress: ''
-            })
+            SetCurrentContact(initialContact)
         }
         setShow(true);
     }
 
 
-    //from navbar open form add button
+    // from navbar open form Add button
     const handleAddButton = () => {
-        SetCurrentContact({
-            employeeName: '',
-            employeeEmail: '',
-            employeeMobile: '',
-            employeeAddress: ''
-        })
+        SetCurrentContact(initialContact)
     }
-    // for submitting new Contact
-    const handleAddContact = () => {
+    // for ADD  submitting new Contact
+    const handleAddContact =async  () => {
 
-        addContact(currentContact);
+      await   addContact(currentContact);
         console.log(currentContact);
+        fetchContacts() ;
 
     }
     const handleClose = () => {
-        SetCurrentContact({
-            employeeName: '',
-            employeeEmail: '',
-            employeeMobile: '',
-            employeeAddress: ''
-        })
+        SetCurrentContact(initialContact)
         setShow(false);
         setIsEditClicked(false);
     };
 
     const handleEdit = (id) => {
-        const currentContact = contacts.find((cnt) => cnt.employeeId == id);
+        const currentContact = contacts.find((cnt) => cnt.employeeId === id);
         SetCurrentContact(currentContact);
         setIsEditClicked(true);
-        // debugger ;
-
     }
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
 
-        updateContact(currentContact, currentContact.employeeId);
-        console.log(currentContact);
-
+       await  updateContact(currentContact, currentContact.employeeId);       
+    fetchContacts() ;
     }
 
-    const handleDelete = (id) => {
+    //DELETE
+    const handleDelete =async  (id) => {
         alert("want to delete " + currentContact.employeeName)
-        deleteContact(id)
+       await  deleteContact(id) ;
+       setIsDeleted(true);
+       setIsContact(false) ;
+        fetchContacts() ;
     }
+
 
     useEffect(() => {
-        const fetchContacts = async () => {
-            const data = await getContacts()
-            SetContcts(data);
-        }
+      
         fetchContacts();
+
     }, [])
 
 
@@ -93,7 +89,7 @@ export const AuthProvider = ({ children }) => {
     }, [isEditClicked]);
     return <AuthContext.Provider value={{
         contacts, show, handleClose, handleOpen, handleDelete, handleEdit, handleAddButton, SetCurrentContact, handleAddContact, handleUpdate
-        , currentContact, isEditClicked
+        , currentContact, isEditClicked ,isDelete ,setIsDeleted ,isContact ,setIsContact
     }}>
         {children}
     </AuthContext.Provider>

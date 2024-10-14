@@ -1,22 +1,15 @@
-import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useAuth } from '../store/auth';
 import "./FormModal.css"
 function FormModal() {
     
-    const { show, handleClose, handleOpen ,currentContact,SetCurrentContact  ,isEditClicked ,handleAddContact , handleUpdate} = useAuth();
-    // const [currentContact ,setCurrentContact]  = useState({
-    //     employeeName : '' ,
-    //     employeeEmail: '',
-    //     employeeMobile: '',
-    //     employeeAddress: ''
-    // }) ;
-
+    const { show, handleClose,  currentContact,SetCurrentContact  ,isEditClicked ,handleAddContact , handleUpdate} =  useAuth();
+   
     const handleChange =(e) => {
-        console.log("mfghj");
+     
             const {name , value} = e.target ;
-            console.log( value);
+         
             
             SetCurrentContact( (prevState) => ({
                 ...prevState ,

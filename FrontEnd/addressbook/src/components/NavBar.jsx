@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
+import {React} from  'react'
 import { useAuth } from '../store/auth';
 
 
 const NavBar = () => {
 const {handleOpen ,handleAddButton}  = useAuth() ;
+
 
 const handleAddContact = () => {
     handleOpen() ;
