@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ContactList.css'
 import { useAuth } from '../store/auth'
 import ContactDetails from './ContactDetails';
-import { Navigate, useNavigate ,Link } from 'react-router-dom';
+import { Navigate, useNavigate ,Link, NavLink } from 'react-router-dom';
 
 const ContactList = () => {
     const [currentContact ,setCurrentContact] =useState({}) ;
@@ -30,18 +30,18 @@ const ContactList = () => {
            <>
            
            <h6>CONTACTS</h6>
-           <div>
+           <div className='w-75'>
            <ul className='p-0 '>
                 {
                     (contacts?.length >= 0) ? (
                         contacts?.map(( contact, index) => {
                             return (
                                 <>
-                                    <Link className='w-100 border p-3  linkButton' key={index} id={contact.employeeId} to={`/contactlist/contact/${contact.employeeId}`} >
+                                    <NavLink  activeClassName="active" className='w-100 border p-3  linkButton d-block' key={index} id={contact.employeeId} to={`/contactlist/contact/${contact.employeeId}`} >
                                         <h5>{contact.employeeName}</h5>
                                         <p className='m-0'>{contact.employeeEmail}</p>
                                         <p className='m-0'>{contact.employeeMobile}</p>
-                                    </Link>
+                                    </NavLink>
                                 </>
                             )
                         })

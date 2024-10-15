@@ -37,16 +37,16 @@ function ContactDetails() {
             <div className='col-8 '>
                 <ul className='p-0 d-flex'>
                     <Link className='p-1 linkButton'  to={`/contacts/form/edit/${id}`}  onClick={() =>handleEdit(contact.employeeId)}><span><img src={Edit}  alt='EditIcon'/></span>EDIT</Link>
-                    <Link className='p-1 linkButton' onClick={ (e) => handleDelete(contact.employeeId)}><span><img src={Delete}  alt='deleteIcon' /></span>DELETE</Link>
+                    <Link className='p-1 linkButton' onClick={ (e) => handleDelete(contact.employeeId)}><span className='delete-icon'><img src={Delete}  alt='deleteIcon' /></span>DELETE</Link>
                 </ul>
             </div>    
         </div> 
-        <div className='sub-deatils'>
+        <div className='sub-deatils col-6'>
             <p>Email: {contact?.employeeEmail}</p>
             <p>Mobile:  {contact?.employeeMobile}</p>
-            <p>Landline:{contact?.employeeMobile}</p>
-            <p>Website : {contact?.employeeWebsite}</p>
-            <p>Address: { contact?.employeeAddress}</p>
+            <p>Landline: +91 {contact?.employeeMobile}</p>
+            <p className='py-3'>Website : {contact?.employeeWebsite}</p>
+            <span className='address'>Address: { contact?.employeeAddress}</span>
         </div>       
     </>
   )

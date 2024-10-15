@@ -71,3 +71,31 @@ li{
   text-decoration: none;
   color: black;
 }
+.linkButton:hover {
+  background-color: #CEE7F2;
+
+} 
+
+.active{
+  /* background-color: #CEE7F2; */
+  background-color: #4dc8fd;
+}
+
+
+
+@media only screen and (max-width: 950px){
+    .list-section{
+      width: 100% !important; 
+
+    }
+    .details-sectoin{
+      width: 100% !important; 
+      
+    }
+
+    .list-section ul {
+      height: 16vh;
+      overflow: auto;
+  }
+}
+

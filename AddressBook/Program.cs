@@ -33,7 +33,6 @@ namespace AddressBook
                                           policy.WithOrigins("http://localhost:3000/");
                                       });
                 });
-                //builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
                 //Add scoped to tell that for dependency injection register 
                 builder.Services.AddScoped<IEmployeeService, EmployeeService>();

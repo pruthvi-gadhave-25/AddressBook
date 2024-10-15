@@ -1,6 +1,6 @@
 import {React} from  'react'
 import { useAuth } from '../store/auth';
-import {Link}  from 'react-router-dom' ;
+import {Link, NavLink}  from 'react-router-dom' ;
 
 
 const NavBar = () => {
@@ -13,11 +13,11 @@ const handleAddContact = () => {
 }
     return (
 
-        <div className="container-fluid bg-dark-subtle ">
-            <ul className='d-flex p-2'>
+        <div className="container-fluid bg-dark">
+            <ul className='d-flex'>
 
-                <Link className='px-3 linkButton'  to='/contactlist'>HOME</Link>
-                <Link className='px-3 linkButton' to='/contacts/form/add' onClick={handleOpen}> ADD </Link>                                                 
+                <NavLink activeClasName="active" className='p-2 linkButton fw-medium text-white'  to='/contactlist'>HOME</NavLink>
+                <NavLink activeClasName="active" className='p-2 linkButton fw-medium text-white' to='/contacts/form/add' onClick={handleOpen}> ADD </NavLink>                                                 
             </ul>
         </div>
 

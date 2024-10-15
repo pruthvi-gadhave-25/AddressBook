@@ -2,6 +2,9 @@ img{
     height: 33%;
     margin-right: 0.2rem;
 }
+.delete-icon{
+    height: 45%;
+}
 
 
 .heading{
@@ -11,4 +14,18 @@ img{
 .list-section ul {
     height: 45vh;
     overflow: auto;
+}
+
+.address{
+    width: 15vw;
+    word-wrap: break-word;
+}
+
+@media only screen and (max-width: 950px){
+   
+
+    .list-section ul {
+      height: 16vh;
+      overflow: auto;
+  }
 }
